@@ -85,3 +85,22 @@ def capture(cmd):
 
     
   return p.communicate()[0]
+
+
+# routines from xalt_json_to_db.py
+
+def remove_files(fileA):
+  for f in fileA:
+    os.remove(f)
+
+
+def passwd_generator():
+  xaltUserA = os.environ.get("XALT_USERS")
+  if (xaltUserA):
+    for user in xaltUserA.split(":"):
+      yield user, os.path.expanduser("~" + user)
+
+  else:
+    for entry in getent.passwd():
+      yield entry.name, entry.dir
+
