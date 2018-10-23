@@ -500,7 +500,7 @@ void myinit(int argc, char **argv)
             dup2(fd2, STDERR_FILENO);           
             close(fd2);                         
             //__result = FUNC(x1, x2);            
-            __result = dcgmStartEmbedded(DCGM_OPERATION_MODE_MANUAL, &dcgm_handle)
+            __result = dcgmStartEmbedded(DCGM_OPERATION_MODE_MANUAL, &dcgm_handle);
             fflush(stderr);                     
             dup2(fd1, STDERR_FILENO);           
             close(fd1);                         
