@@ -490,7 +490,23 @@ void myinit(int argc, char **argv)
               break;
             }
 
-          DCGMFUNC2(dcgmStartEmbedded, DCGM_OPERATION_MODE_MANUAL, &dcgm_handle, &result); 
+          //#define DCGMFUNC2(FUNC,x1,x2,out)  
+          {                          
+            dcgmReturn_t __result;   
+            int fd1, fd2;            
+            fflush(stderr);          
+            fd1 = dup(STDERR_FILENO);           
+            fd2 = open("/dev/null", O_WRONLY);  
+            dup2(fd2, STDERR_FILENO);           
+            close(fd2);                         
+            //__result = FUNC(x1, x2);            
+            __result = dcgmStartEmbedded(DCGM_OPERATION_MODE_MANUAL, &dcgm_handle)
+            fflush(stderr);                     
+            dup2(fd1, STDERR_FILENO);           
+            close(fd1);                         
+            (*(&result)) = __result;
+          }
+          //DCGMFUNC2(dcgmStartEmbedded, DCGM_OPERATION_MODE_MANUAL, &dcgm_handle, &result); 
 
           if (result != DCGM_ST_OK)
             {
