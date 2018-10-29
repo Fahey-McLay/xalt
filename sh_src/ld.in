@@ -56,7 +56,8 @@ declare -l XALT_TRANSMISSION_STYLE
 
 if [ -z "$XALT_PRELOAD_ONLY" ]; then
     XALT_PRELOAD_ONLY=@preload_only@
-elif [ "$XALT_PRELOAD_ONLY" != no ]; then
+fi
+if [ "$XALT_PRELOAD_ONLY" != no ]; then
    XALT_PRELOAD_ONLY=yes
 fi
 
